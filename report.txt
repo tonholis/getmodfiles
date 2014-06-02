@@ -1,0 +1,5 @@
+3 files changed from Mon Jun 02 2014 00:00:00 GMT-0300 (BRT)
+
+/Users/cleyton/Projetos/Pessoal/nodejs/getmodfiles/test/file1.txt
+/Users/cleyton/Projetos/Pessoal/nodejs/getmodfiles/test/folder1/file2.txt
+/Users/cleyton/Projetos/Pessoal/nodejs/getmodfiles/test/folder1/folder2/file3.txt

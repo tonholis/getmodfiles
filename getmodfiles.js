@@ -1,28 +1,46 @@
-//Script para listar os arquivos modificados em um diretorio base (dir) a partir de uma certa data (fromDate)
-
-//Documentação NodeJS
+//Refs
 //http://nodejs.org/api/fs.html
 
 var fs = require('fs');
 var fse = require('fs-extra');
 var path = require('path');
 
-//diretorio base
-// var dir = "C:\\inetpub\\wwwroot\\Intranet";
-// var copyDir = __dirname + "\\copy";
+/****************
+VARS
+*****************/
+
+//base dir
 var dir = __dirname + "/test";
+
+//output dir for copy
 var copyDir = __dirname + "/copy";
 
-//output type: text, copy, both
+//look for files from this date
+var fromDate = new Date(2014, 1, 10); 
+
+//output type
 var output = "text"; //default
+
+/****************
+ARGUMENTS
+*****************/
 if (process.argv.length > 2)
+{
 	output = process.argv[2];
+}
 
-//consider files from this date
-var fromDate = new Date(2014, 1, 10); //o mes começa em 0 (janeiro)
+if (process.argv.length > 3)
+{
+	var sdate = process.argv[3].split('-');
+	fromDate = new Date(sdate[0], sdate[1], sdate[2]);
+}
 
+/****************
+ARGUMENTS
+*****************/
 var walk = function(dir, done) {
 	var results = [];
+
 	fs.readdir(dir, function(err, list) {
 		if (err) 
 			return done(err);
@@ -43,12 +61,11 @@ var walk = function(dir, done) {
 							done(null, results);
 					});
 				} else {
-					if (stat.mtime >= fromDate) {
+					if (stat.mtime >= fromDate)
 						results.push(file);
-						
-						if (!--pending) 
-							done(null, results);
-					}
+
+					if (!--pending) 
+						done(null, results);
 				}
 			});
 		});
@@ -56,12 +73,16 @@ var walk = function(dir, done) {
 };
 
 var writeResults = function (results) {
-	var output = path.join(__dirname, 'mfiles-out.txt');
-	fs.writeFile(output, results.join('\n'), function(err) {
+	var report = path.join(__dirname, 'report.txt');
+	
+	var content = results.length + " files changed from " + fromDate.toLocaleString();
+	content += '\n\n' + results.join('\n');
+
+	fs.writeFile(report, content, function(err) {
 		if(err) {
 			console.log(err);
 		} else {
-			console.log("Report generated!!!");
+			console.log("Report created in " + report);
 		}
 	});
 };
@@ -78,12 +99,17 @@ var copyFiles = function (results) {
 		});
 	});
 
-	console.log("Files copied!!!");	
+	console.log(results.length + " files copied");	
 };
-
 
 walk(dir, function(err, results) {
 	if (err) throw err;
+
+	if (results.length == 0)
+	{
+		console.log('No files were modified from ' + fromDate);
+		return;
+	}
 
 	if (output == 'both' || output == 'text')
 		writeResults(results);	
