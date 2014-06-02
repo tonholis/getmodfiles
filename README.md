@@ -6,9 +6,15 @@ It lists all modified files on a given folder and a given start date.
 
 ###How to run?
 
-1. Edit the variable dir with the desired base dir
-2. Edit the variable fromDate with the desired start date to looking forward
-3. Run the the script with in the terminal/prompt like 'node getmodfiles.js'
-4. It will generate a text file with the results
+1. npm install 
+2. Edit the 'dir' variable with the desired base dir
+3. Edit the 'fromDate' variable with the desired start date to looking forward
+4. Run the the script in the terminal like:
+	>node getmodfiles.js <output-type>
+
+	/*OUTPUT TYPES*/
+    * 'text' will generate a text report with a list of modified files - DEFAULT
+    * 'copy' will generate a 'copy' folder with the modified files
+    * 'both' will generate a text report and a copy folder
 
 
