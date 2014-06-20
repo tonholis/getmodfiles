@@ -24,15 +24,21 @@ var output = "text"; //default
 /****************
 ARGUMENTS
 *****************/
-if (process.argv.length > 2)
+console.log(process.argv);
+if (process.argv.length >= 3)
 {
-	output = process.argv[2];
+	dir = process.argv[2];
 }
 
-if (process.argv.length > 3)
+if (process.argv.length >= 4)
 {
 	var sdate = process.argv[3].split('-');
-	fromDate = new Date(sdate[0], sdate[1], sdate[2]);
+	fromDate = new Date(sdate[0], parseInt(sdate[1]) - 1, sdate[2]);
+}
+
+if (process.argv.length >= 5)
+{
+	output = process.argv[4];
 }
 
 /****************

@@ -8,8 +8,18 @@ It lists all modified files on a given folder and a given start date.
 1. npm install 
 2. Run the the script in the terminal like:
 
-	`node getmodfiles.js <output-type> <from-date>`
+	`node getmodfiles.js <path> <start-date> <output-type>`
+		
+	`<path>`
 
+    Absolute path for search
+
+    
+    `<start-date>`
+
+    Start date in format: **yyyy-mm-dd** 
+
+	
 	`<output-type>`
 
     * 'text' will generate a text report with a list of modified files - DEFAULT
@@ -17,9 +27,3 @@ It lists all modified files on a given folder and a given start date.
     * 'copy' will generate a 'copy' folder with the modified files
 
     * 'both' will generate a text report and a copy folder
-
-    
-    `<from-date>`
-
-    Date to search forward. In **yyyy-mm-dd** format
-
